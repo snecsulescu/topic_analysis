@@ -88,8 +88,9 @@ if __name__ == "__main__":
 
     inv_voc = {value: key for (key, value) in vocab.items()}
 
-    with open("lda_output.txt", 'w') as f:
-        lda_model = LDA.train(documents, k=13, maxIterations=100)
+    with open("results/lda_output.txt", 'w') as f:
+        n_topics = 13
+        lda_model = LDA.train(documents, k=n_topics, maxIterations=50)
 
         topic_indices = lda_model.describeTopics(maxTermsPerTopic=100)
         print topic_indices
@@ -99,6 +100,6 @@ if __name__ == "__main__":
                 print("{0}\t{1}\n".format(inv_voc[topic_indices[i][0][j]].encode('utf-8'), topic_indices[i][1][j]))
                 f.write("{0}\t{1}\n".format(inv_voc[topic_indices[i][0][j]].encode('utf-8'), topic_indices[i][1][j]))
         print(
-            "{0} topics distributed over {1} documents and {2} unique words\n".format(5, documents.count(), len(vocab)))
+            "{0} topics distributed over {1} documents and {2} unique words\n".format(n_topics, documents.count(), len(vocab)))
         f.write(
-            "{0} topics distributed over {1} documents and {2} unique words\n".format(5, documents.count(), len(vocab)))
+            "{0} topics distributed over {1} documents and {2} unique words\n".format(n_topics, documents.count(), len(vocab)))
